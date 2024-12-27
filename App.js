@@ -8,9 +8,9 @@ import HomeScreen from './screens/HomeScreen';
 
 const RootStack = createNativeStackNavigator({
   screens: {
-    HomeScreen: HomeScreen,
     SignIn: SignIn,
     SignUp: SignUp,
+    HomeScreen: HomeScreen,
   },
 });
 
