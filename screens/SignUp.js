@@ -1,35 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   KeyboardAvoidingView,
   StyleSheet,
-  TextInput,
-  Button,
   Text,
+  TextInput,
   View,
+  Button,
   Pressable,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase';
+import { doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase';
 
 const SignUp = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
 
-  const handleSignUp = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log('Registered with:', user.email);
-      })
-      .catch((error) => alert(error.message));
+  const handleSignUp = async () => {
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredentials.user;
+
+      // Save additional user information to Firestore
+      await setDoc(doc(db, 'users', user.uid), {
+        fullName,
+        phoneNumber,
+        email,
+      });
+
+      console.log('User registered:', user.email);
+      navigation.replace('HomeScreen');
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
     <KeyboardAvoidingView style={styles.container}>
       <Text style={styles.header}>Sign Up</Text>
       <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Full Name"
+          value={fullName}
+          onChangeText={setFullName}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Phone Number"
+          value={phoneNumber}
+          onChangeText={setPhoneNumber}
+          keyboardType="phone-pad"
+        />
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -42,7 +68,7 @@ const SignUp = () => {
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
-          secureTextEntry={true}
+          secureTextEntry
         />
         <Button title="Register" onPress={handleSignUp} />
         <Pressable onPress={() => navigation.navigate('SignIn')}>
