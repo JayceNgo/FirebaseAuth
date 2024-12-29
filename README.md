@@ -20,6 +20,6 @@
 
 ## Demo
 
-<img src="SignIn.png" alt="Logo" width="195"> <img src="SignUp.png" alt="Logo" width="195"> <img src="Home.png" alt="Logo" width="195"> <img src="Edit.png" alt="Logo" width="195"> <img src="AfterEdit.png" alt="Logo" width="195">
+<img src="SignIn.png" alt="Logo" width="157"> <img src="SignUp.png" alt="Logo" width="157"> <img src="Home.png" alt="Logo" width="157"> <img src="Edit.png" alt="Logo" width="157"> <img src="AfterEdit.png" alt="Logo" width="157">
 
 
