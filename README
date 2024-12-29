@@ -1,4 +1,11 @@
-1. Set up project:
+
+## Authors
+
+- [@JayceNgo](https://github.com/JayceNgo)
+
+
+## Set up project
+1. Create new folder
 - expo init FirebaseAuth
 - cd FirebaseAuth
 2. Install React Navigation packages:
@@ -7,3 +14,6 @@
 - npm install @react-navigation/native-stack
 3. Install Firebase packages:
 - expo install firebase
+## Demo
+
+Login Screen
